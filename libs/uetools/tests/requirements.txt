@@ -1,0 +1,14 @@
+pytest >= 3.6.0
+pytest-xdist
+pytest-timeout
+pytest-cov
+codecov
+coverage
+sphinx >= 1.8
+sphinx_rtd_theme
+sphinxcontrib-bibtex
+sphinx-serve
+breathe
+exhale
+lxml
+pytest-regressions
