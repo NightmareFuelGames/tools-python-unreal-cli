@@ -305,3 +305,4 @@ build/
 msbuild.log
 msbuild.err
 msbuild.wrn
+/libs/uetools/

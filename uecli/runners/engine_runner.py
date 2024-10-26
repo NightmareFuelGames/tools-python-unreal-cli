@@ -1,18 +1,16 @@
 from __future__ import annotations
 
-class EngineRunner:
-    @staticmethod
-    def get_current_engine_version(engine_path: str) -> tuple[int, int, int] | None:
+from uecli import EngineProperties
 
+
+class EngineRunner:
+
+    @staticmethod
+    def get_engine_version(engine_path: str) -> (int, int, int):
         import os
         import re
+        get_engine_version_file = EngineProperties.get_engine_version_file_path(engine_path);
 
-        from uecli.validators.engine_validator import EngineValidator
-
-        if not EngineValidator.validate_engine_path(engine_path):
-            raise ValueError(f"Engine path is not valid: {engine_path}")
-
-        get_engine_version_file = os.path.join(engine_path, "Engine", "Build", "Build.version")
         if os.path.exists(get_engine_version_file):
             with open(get_engine_version_file, "r") as f:
                 version_major: int = 0
@@ -30,3 +28,5 @@ class EngineRunner:
                 return version_major, version_minor, version_patch
         else:
             raise FileNotFoundError(f"Engine version file not found: {get_engine_version_file}")
+
+

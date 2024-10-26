@@ -4,8 +4,9 @@ class EnvironmentValidator:
 
     @staticmethod
     def validate(environment: EnvironmentModel) -> bool:
-        for key, env_var in environment.cached_vars.items():
-            if not env_var.is_set:
-                raise ValueError(f"Environment variable {key} is not set.")
-
-        return True
+        pass#TODO: Implement this method
+    #     for key, env_var in environment.cached_vars.items():
+    #         if not env_var.is_set:
+    #             raise ValueError(f"Environment {key} variable is not set.")
+    #
+    #     return True

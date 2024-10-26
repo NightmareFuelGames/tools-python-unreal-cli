@@ -1,7 +1,7 @@
 from __future__ import annotations
 from uecli.models.environment_vars import EnvironmentModel
 
-class EngineModel:
+class EngineProperties:
 
     def __init__(self, engine_path: str, engine_version: tuple[int, int, int]):
         self.engine_path: str = engine_path
@@ -14,11 +14,18 @@ class EngineModel:
                 f"\n)")
 
     @staticmethod
-    def create(env_vars: EnvironmentModel) -> EngineModel:
+    def get_engine_version_file_path(engine_base_path: str) -> str:
+        import os
+        return os.path.join(engine_base_path, "Build", "Build.version")
+
+    @staticmethod
+    def create(env_vars: EnvironmentModel) -> EngineProperties:
         from uecli.runners.engine_runner import EngineRunner
 
-        engine_version: {int, int, int} = EngineRunner.get_current_engine_version(env_vars.engine_path)
-        engine_data = EngineModel(
+        engine_version: (int, int, int) = (
+            EngineRunner.get_engine_version(env_vars.engine_path)
+        )
+        engine_data = EngineProperties(
             env_vars.get("ENGINE_PATH").value,
             engine_version
         )

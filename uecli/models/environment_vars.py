@@ -22,6 +22,7 @@ class EnvironmentModel:
     has_been_loaded: bool = False
     cached_vars: Dict = {
         'ENGINE_PATH': EnvironmentVar("ENGINE_PATH", None),
+        'ARCHIVE_PATH': EnvironmentVar("ARCHIVE_PATH", None),
         'PROJECT_PATH': EnvironmentVar("PROJECT_PATH", None),
         'MINIMAL_ENGINE_VERSION_MAJOR': EnvironmentVar("MINIMAL_ENGINE_VERSION_MAJOR", 5),
         'MINIMAL_ENGINE_VERSION_MINOR': EnvironmentVar("MINIMAL_ENGINE_VERSION_MINOR", 4),
@@ -32,6 +33,10 @@ class EnvironmentModel:
     @property
     def engine_path(self):
         return self.cached_vars.get("ENGINE_PATH").value
+
+    @property
+    def archive_path(self):
+        return self.cached_vars.get("ARCHIVE_PATH").value
 
     @property
     def project_path(self):
@@ -52,15 +57,16 @@ class EnvironmentModel:
                                    f"     {val}" for key, val in self.cached_vars.items()])
                 + "\n )")
 
+
     @classmethod
     def _fetch_dot_and_env(cls) -> Dict:
         from dotenv import load_dotenv as _load_dotenv
         import os
 
         _load_dotenv()
-
         for key, env_var in cls.cached_vars.items():
             env_var.value = os.getenv(key)
+            print(f"Loaded {env_var}")
 
         return cls.cached_vars
 
