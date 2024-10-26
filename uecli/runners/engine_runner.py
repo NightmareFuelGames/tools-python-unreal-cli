@@ -4,9 +4,16 @@ from uecli import EngineProperties
 
 
 class EngineRunner:
-
+    """
+    Runner for engine commands
+    """
     @staticmethod
     def get_engine_version(engine_path: str) -> (int, int, int):
+        """
+        Get the engine version
+        :param engine_path:  The path to the engine ../?UE_5.4?/Engine <--install location of the engine
+        :return: The engine version
+        """
         import os
         import re
         get_engine_version_file = EngineProperties.get_engine_version_file_path(engine_path);

@@ -1,22 +1,43 @@
 from __future__ import annotations
 
 class EnvironmentVar:
-    def __init__(self, key: str, value=None):
+    """
+    Model for environment variables
+    """
+    def __init__(self, key: str, value=None, can_be_none: bool = False):
+        """
+        Constructor
+        :param key: the key of the environment variable
+        :param value:  the value of the environment variable
+        :param can_be_none:  True if the value can be None
+        """
         self.key: str = key
         self.value = value
+        self.can_be_none = can_be_none
 
     @property
     def is_set(self) -> bool:
+        """
+        Check if the value is set
+        :return:  True if the value is set
+        """
         return self.value is not None
 
     @property
     def is_valid(self) -> bool:
-        return self.is_set
+        """
+        Check if the value is valid, i.e. set or can be None
+        :return: True if the value is valid
+        """
+        return self.is_set or self.can_be_none
 
     def __str__(self):
         return f"[{self.key}={self.value}]"
 
 class EnvironmentModel:
+    """
+    Model for environment variables
+    """
     from typing import Dict
 
     has_been_loaded: bool = False
@@ -24,9 +45,9 @@ class EnvironmentModel:
         'ENGINE_PATH': EnvironmentVar("ENGINE_PATH", None),
         'ARCHIVE_PATH': EnvironmentVar("ARCHIVE_PATH", None),
         'PROJECT_PATH': EnvironmentVar("PROJECT_PATH", None),
-        'MINIMAL_ENGINE_VERSION_MAJOR': EnvironmentVar("MINIMAL_ENGINE_VERSION_MAJOR", 5),
-        'MINIMAL_ENGINE_VERSION_MINOR': EnvironmentVar("MINIMAL_ENGINE_VERSION_MINOR", 4),
-        'MINIMAL_ENGINE_VERSION_PATCH': EnvironmentVar("MINIMAL_ENGINE_VERSION_PATCH", 0),
+        'ENGINE_MAJOR': EnvironmentVar("ENGINE_MAJOR", 5),
+        'ENGINE_MINOR': EnvironmentVar("ENGINE_MINOR", 4),
+        'ENGINE_PATCH': EnvironmentVar("ENGINE_PATCH", 4),
     }
 
 
@@ -44,9 +65,9 @@ class EnvironmentModel:
 
     @property
     def minimal_engine_version(self) -> {int, int, int}:
-        return (self.cached_vars.get("MINIMAL_ENGINE_VERSION_MAJOR").value,
-                self.cached_vars.get("MINIMAL_ENGINE_VERSION_MINOR").value,
-                self.cached_vars.get("MINIMAL_ENGINE_VERSION_PATCH").value)
+        return (self.cached_vars.get("ENGINE_MAJOR").value,
+                self.cached_vars.get("ENGINE_MINOR").value,
+                self.cached_vars.get("ENGINE_PATCH").value)
 
     def get(self, key: str) -> EnvironmentVar:
         return self.cached_vars.get(key)
@@ -71,9 +92,9 @@ class EnvironmentModel:
         return cls.cached_vars
 
     @classmethod
-    def load(cls) -> "EnvironmentModel":
+    def load(cls, force_reload: bool = False) -> "EnvironmentModel":
         import os
-        if cls.has_been_loaded:
+        if cls.has_been_loaded and not force_reload: #use cached vars
             return cls()
 
         cls.has_been_loaded = True
