@@ -1,3 +1,9 @@
 [submodule "third_party/themes/catpuccin"]
 	path = third_party/themes/catpuccin
 	url = git@github.com:NightmareFuelGames/themes-catpuccin.git
+[submodule "third_party/themes/theme_printer"]
+	path = third_party/themes/theme_printer
+	url = git@github.com:RhetTbull/rich_theme_printer.git
+[submodule "third_party/themes/theme_manager"]
+	path = third_party/themes/theme_manager
+	url = git@github.com:RhetTbull/rich_theme_manager.git

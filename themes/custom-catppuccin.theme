@@ -5,7 +5,8 @@ tags =
 inherit = True
 
 [styles]
-logger.error = bold red
-logger.info = bold cyan
-logger.trace = dim italic blue
-logger.warning = bold magenta
+logger.info = #94E2D5
+logger.warning = bold #F5C2E7
+logger.debug = dim #A6E3A1
+logger.success = bold #A6E3A1
+logger.error = bold #F38BA8
