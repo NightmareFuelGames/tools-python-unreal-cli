@@ -3,7 +3,22 @@
 
 __version__ = "0.1.0"
 __author__ = "Kasper de Bruin"
-__url__ = ""
+__url__ = "https://github.com/NightmareFuelGames/tools-python-unreal-cli"
+__description__ = "A command line interface for Unreal Engine 4 and 5"
+__license__ = "MIT"
+
+from uecli.logger import *
+G_LOGGER = Logger("Global Logger")
+G_LOGGER.info("Logger initialized")
+
+def print_metadata():
+    G_LOGGER.info(f"Version: {__version__}")
+    G_LOGGER.info(f"Author: {__author__}")
+    G_LOGGER.info(f"URL: {__url__}")
+    G_LOGGER.info(f"Description: {__description__}")
+    G_LOGGER.info(f"License: {__license__}")
+
+print_metadata()
 
 import sys
 import os
@@ -31,3 +46,4 @@ CACHED_ENGINE_MODEL: EngineProperties = EngineProperties.create(CACHED_ENVIRONME
 from uecli.validators.engine_validator import EngineValidator
 
 engine_validation: {int, bool} = EngineValidator.validate(CACHED_ENGINE_MODEL)
+

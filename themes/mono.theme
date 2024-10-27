@@ -1,0 +1,10 @@
+[metadata]
+name = mono
+description = Monochromatic theme
+tags = mono, colorblind
+inherit = True
+
+[styles]
+danger = bold reverse
+info = italic
+warning = bold

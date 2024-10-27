@@ -1,0 +1,10 @@
+[metadata]
+name = light
+description = Light mode theme
+tags = 
+inherit = True
+
+[styles]
+danger = bold italic underline #b31d28
+info = bold #22863a
+warning = bold #032f62

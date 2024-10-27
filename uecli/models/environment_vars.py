@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+
+
 class EnvironmentVar:
     """
     Model for environment variables
@@ -81,13 +83,19 @@ class EnvironmentModel:
 
     @classmethod
     def _fetch_dot_and_env(cls) -> Dict:
-        from dotenv import load_dotenv as _load_dotenv
+        import dotenv
         import os
 
-        _load_dotenv()
+        dotenv.load_dotenv(
+            override=True,
+            verbose=True)
+
+        # values:Dict[str, Optional[str]] = dotenv.dotenv_values()
+        # for key, value in values.items():
+        #     print(f"Loaded {key}={value}")
+
         for key, env_var in cls.cached_vars.items():
             env_var.value = os.getenv(key)
-            print(f"Loaded {env_var}")
 
         return cls.cached_vars
 

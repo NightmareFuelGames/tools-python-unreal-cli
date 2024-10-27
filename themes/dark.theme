@@ -1,0 +1,10 @@
+[metadata]
+name = dark
+description = Dark mode theme
+tags = dark
+inherit = True
+
+[styles]
+danger = bold red
+info = dim cyan
+warning = bold magenta

@@ -1,0 +1,11 @@
+[metadata]
+name = custom-catppuccin
+description = Custom theme
+tags = 
+inherit = True
+
+[styles]
+logger.error = bold red
+logger.info = bold cyan
+logger.trace = dim italic blue
+logger.warning = bold magenta

@@ -18,30 +18,9 @@ from rich.columns import Columns
 import uecli
 from uecli.ui import SplitItemOptions, SplitDirection
 from uecli.ui.content_screen import ContentScreen
-
+from uecli.logger import LogMessage, g_info, print, G_LOGGER
 
 class Placeholder(ContentScreen):
-    test_data = [
-        {
-            "jsonrpc": "2.0",
-            "method": "sum",
-            "params": [None, 1, 2, 4, False, True],
-            "id": "1",
-        },
-        {
-            "jsonrpc": "2.0",
-            "method": "notify_hello",
-            "params": [7],
-            "id": "2",
-        },
-        {
-            "jsonrpc": "2.0",
-            "method": "subtract",
-            "params": [42, 23],
-            "id": "3"
-        },
-    ]
-
     def __init__(self):
         super().__init__()
 
@@ -49,22 +28,36 @@ class Placeholder(ContentScreen):
         """
         Example of a log, display the test_data
         """
-        log = Text()
-        for data in self.test_data:
-            log.append(f"[bold]{data['jsonrpc']}[/bold] {
-            data['method']} {data['params']} {data['id']}")
+        g_info("test")
+
+        log: Text = Text()
+
+
+        info_log_messages: List[LogMessage] = G_LOGGER.all_messages
+        for log_message in info_log_messages:
+            log.append(log_message.formatted_msg)
+
+
+
         return log
 
     def example_panel(self) -> Table:
         # split in half
         table = Table(title="JSON-RPC Examples")
-        table.add_column("jsonrpc")
-        table.add_column("method")
-        table.add_column("params")
-        table.add_column("id")
+        table.add_column("logger")
+        table.add_column("severity")
+        table.add_column("time")
+        table.add_column("log")
 
-        for data in self.test_data:
-            table.add_row(data["jsonrpc"], data["method"], data["id"])
+        info_log_messages: List[LogMessage] = G_LOGGER.all_messages
+        for log_message in info_log_messages:
+            datetime_formatted: str  = log_message.time.strftime("%Y-%m-%d %H:%M:%S")
+            table.add_row(
+                G_LOGGER.name,
+                log_message.log_severity.name,
+                datetime_formatted,
+                log_message.formatted_msg)
+
 
         return table
 
@@ -75,12 +68,17 @@ class Placeholder(ContentScreen):
             SplitItemOptions(name="table", ratio=1)
         ]
         
-        uecli.ui.split_layout(layout, split_options, SplitDirection.ROW)
-        
+        uecli.ui.split_layout(layout,
+                              split_options,
+                              SplitDirection.ROW)
+
+        layout["log"].update(self.example_log())
+        layout["table"].update(self.example_panel())
+
         return layout
     
     def render(self) -> Panel:
-        return Panel(self.create_layout(), style="red")
+        return Panel(self.create_layout(), title="Placeholder Screen")
 
     def handle_key(self, event):
         print(f"Key pressed: {event.name}")

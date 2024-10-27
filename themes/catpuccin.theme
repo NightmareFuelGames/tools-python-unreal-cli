@@ -1,0 +1,29 @@
+[metadata]
+name = catppuccin
+description = Catppuccin Frappe-inspired dark theme
+tags = dark, frappe, catppuccin
+inherit = True
+
+# Base log styles
+[styles]
+danger = bold #F38BA8
+info = #94E2D5
+warning = bold #F5C2E7
+debug = dim #A6E3A1
+success = bold #A6E3A1
+
+# Additional severity levels
+trace = #89B4FA
+critical = bold #F38BA8
+
+# Custom elements
+time = dim #BAC2DE
+level = bold #A6E3A1
+panel_title = bold #A6ADC8
+placeholder = italic #BAC2DE
+
+# Placeholder-specific elements
+layout = #D9E0EE #1E1E1E
+table_title = bold #F5C2E7
+column_header = #C6D0F5
+key_press = bold #F5C2E7

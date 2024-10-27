@@ -1,9 +1,6 @@
-from dataclasses import dataclass
-from enum import Enum
-from typing import List, Dict
-
 from rich.layout import Layout
-from typing_extensions import Callable
+from uecli.logger import *
+from . import themes
 
 class SplitDirection(Enum):
     ROW = "row"
@@ -15,7 +12,7 @@ class SplitItemOptions:
     name: str
     ratio: int
 
-@staticmethod
+
 def get_child(layout: Layout, name: str) -> Layout:
     result: Layout = None
     for child in layout.children:
@@ -28,8 +25,6 @@ def get_child(layout: Layout, name: str) -> Layout:
 
     return result
 
-
-@staticmethod
 def split_layout(layout: Layout, items: List[SplitItemOptions],
                  split_direction: SplitDirection = SplitDirection.COLUMN) -> Layout:
     item_layouts: List[Layout] = []
