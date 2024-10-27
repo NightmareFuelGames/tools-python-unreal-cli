@@ -1,0 +1,3 @@
+[submodule "third_party/themes/catpuccin"]
+	path = third_party/themes/catpuccin
+	url = git@github.com:NightmareFuelGames/themes-catpuccin.git
